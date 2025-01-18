@@ -88,6 +88,21 @@
                           ;; filter
                           [?e :movie/release-year 1985]])
 
+;; Query with Inputs
+(def titles-from-year '[:find ?title
+                        :in $ ?year
+                        :where
+                        [?e :movie/title ?title]
+                        [?e :movie/release-year ?year]])
+                        ;; & refer to database name
+
+;; bind-coll, year = ? or year = ? or ...
+(def titles-from-years '[:find ?title
+                         :in $ [?year ...]
+                         :where
+                         [?e :movie/title ?title]
+                         [?e :movie/release-year ?year]])
+
 (comment
 
   (d/q all-movies-q db)
@@ -101,6 +116,9 @@
   ;; _ = has :moviet/title or :movie/release-year equals 1985?
 
   (d/q all-data-from-1985 db)
+
+  (d/q titles-from-year db 1985)
+  (d/q titles-from-years db [1985 1984])
 
   ;; Reset
   (do
