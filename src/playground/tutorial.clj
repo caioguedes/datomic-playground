@@ -63,12 +63,23 @@
 ;; Query
 (def db (d/db conn))
 
-(comment
-  (d/list-databases datomic-uri {})
-  (d/db-stats db)
-  (d/delete-database datomic-uri)
 
-  (d/q '[:find ?doc ; ?alias 
-         :where [_ :db/doc ?doc]] db)
+;; Query all entity ids that contains movie title
+(def all-movies-q '[:find ?e ;; Define logic variable
+                    ;; Doc Ref: bind the id of each entity that has attribute called :movie/title
+                    :where [?e :movie/title]])
+
+;; Query all movie titles
+;; Doc Ref: Find all movie titles from any entity that has an attribute :movie/title and assign it to ?movie-title
+(def all-titles-q '[:find ?movie-title
+                    :where [_ :movie/title ?movie-title]])
+
+(comment
+
+  (d/q all-movies-q db)
+  (d/q all-titles-q db)
+
+
+  (d/delete-database datomic-uri)
 
   :hodor)
