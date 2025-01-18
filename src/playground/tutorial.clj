@@ -63,7 +63,6 @@
 ;; Query
 (def db (d/db conn))
 
-
 ;; Query all entity ids that contains movie title
 (def all-movies-q '[:find ?e ;; Define logic variable
                     ;; Doc Ref: bind the id of each entity that has attribute called :movie/title
@@ -74,12 +73,39 @@
 (def all-titles-q '[:find ?movie-title
                     :where [_ :movie/title ?movie-title]])
 
+(def titles-from-1985 '[:find ?title
+                        :where
+                        [?e :movie/title ?title] ;; bind
+                        [?e :movie/release-year 1985]]) ;; filter
+                        ;; ?e join the clauses (and?)
+
+(def all-data-from-1985 '[:find ?title ?year ?genre
+                          :where
+                          ;; binds
+                          [?e :movie/title ?title]
+                          [?e :movie/release-year ?year]
+                          [?e :movie/genre ?genre]
+                          ;; filter
+                          [?e :movie/release-year 1985]])
+
 (comment
 
   (d/q all-movies-q db)
   (d/q all-titles-q db)
 
+  (d/q titles-from-1985 db)
+  (d/q '[:find ?title
+         :where
+         [_ :movie/title ?title]
+         [_ :movie/release-year 1985]] db)
+  ;; _ = has :moviet/title or :movie/release-year equals 1985?
 
-  (d/delete-database datomic-uri)
+  (d/q all-data-from-1985 db)
 
+  ;; Reset
+  (do
+    (d/delete-database datomic-uri)
+    (d/create-database datomic-uri)
+    (def conn (d/connect datomic-uri))
+    (def db (d/db conn)))
   :hodor)
