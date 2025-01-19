@@ -104,18 +104,23 @@
 
   (def db (d/db conn))
 
+  (def loan-date (java.util.Date.))
+  (defn next-due-date [dt]
+    (-> (.toInstant dt)
+        (.plus 20 java.time.temporal.ChronoUnit/DAYS)
+        (java.util.Date/from)))
 
-  (def loan-date (java.time.Instant/now))
-  (def loan [{;;:loan/member {:member/email "member2@example.com"}
-              :loan/date loan-date
-             ;;:loan/due-date (.plus loan-date 20 java.time.temporal.ChronoUnit/DAYS)
-             ;;:loan/books [{:book/isbn 9781593275914}]
-              }])
+  (def loans [{:loan/member {:member/email "member2@example.com"}
+               :loan/date loan-date
+               :loan/due-date (next-due-date loan-date)
+               :loan/books [{:book/isbn 9781593275914}]}
 
-  @(d/transact conn load)
+              {:loan/member {:member/email "member1@example.com"}
+               :loan/date loan-date
+               :loan/due-date (next-due-date loan-date)
+               :loan/books [{:book/isbn 9781680502466}]}])
 
-
-  (doto (java.time.Instant/now) (.plus 10 java.time.temporal.ChronoUnit/DAYS))
+  @(d/transact conn loans)
 
   (d/q '[:find ?isbn ?title
          :where
@@ -123,6 +128,7 @@
          [?e :book/isbn ?isbn]] db)
 
   (d/q '[:find (pull ?e [*])
-         :where [?e :book/isbn]] db)
+         :where [?e :loan/date]] db)
+
 
   :hodor)
