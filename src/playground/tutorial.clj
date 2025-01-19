@@ -8,6 +8,9 @@
                              :storage-dir :mem ;; in-memory database
                              :system "dev"}))
 
+(defn db-uri [db]
+  (str "datomic:sql://" db "?jdbc:postgresql://localhost:5432/datomic?user=datomic&password=datomic"))
+
 (def datomic-uri "datomic:sql://movies?jdbc:postgresql://localhost:5432/datomic?user=datomic&password=datomic")
 
 ;; Creating Database
