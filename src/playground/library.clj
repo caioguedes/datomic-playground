@@ -22,12 +22,12 @@
     [?e :loan/date ?date]
     [(playground.datetime/dt-y-eq ?date ?year)]])
 
-(def all-loans-of-month-year-q
+(def all-loans-of-year-month-q
   '[:find [(pull ?e [*]) ...]
-    :in $ ?month-year
+    :in $ ?year-month
     :where
     [?e :loan/date ?date]
-    [(playground.datetime/dt-ym-eq ?date ?month-year)]])
+    [(playground.datetime/dt-ym-eq ?date ?year-month)]])
 
 (def all-book-titles-q
   '[:find [?title ...]
@@ -51,7 +51,7 @@
   (d/q all-loans-q db)
   (d/q all-loans-of-year-q db #inst "2025")
   (d/q all-loans-of-year-q db #inst "2024")
-  (d/q all-loans-of-month-year-q db #inst "2024-11")
+  (d/q all-loans-of-year-month-q db #inst "2024-11")
 
   (d/q all-book-titles-q db)
   (d/q loans-by-member-q db [:member/email "member1@example.com"])
