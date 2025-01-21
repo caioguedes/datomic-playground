@@ -1,4 +1,4 @@
-(ns playground.library
+(ns playground.library.core
   (:require [datomic.api :as d]
             [playground.tutorial :refer [db-uri]]
             [playground.library.schema :refer [library-schema library-samples]]))
@@ -39,14 +39,15 @@
     :where [?e :loan/member ?member]])
 
 (comment
+  ;; Initialize Database
   (def uri (db-uri "library"))
   (d/delete-database uri)
   (d/create-database uri)
   (def conn (d/connect (playground.tutorial/db-uri "library")))
-  ;; Initialize Database
-  @(d/transact conn library-schema)
-  @(d/transact conn library-samples)
   (def db (d/db conn))
+  @(d/transact conn library-schema)
+  @(d/transact conn (read-string (slurp "resources/library-samples.edn")))
+
 
   (d/q all-loans-q db)
   (d/q all-loans-of-year-q db #inst "2025")
