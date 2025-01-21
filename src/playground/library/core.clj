@@ -1,7 +1,7 @@
 (ns playground.library.core
   (:require [datomic.api :as d]
             [playground.tutorial :refer [db-uri]]
-            [playground.library.schema :refer [library-schema library-samples]]))
+            [playground.library.schema :refer [library-schema]]))
 
 ;; Queries
 ;; * Loans that happend in the this month [ok]
@@ -20,14 +20,14 @@
     :in $ ?year
     :where
     [?e :loan/date ?date]
-    [(playground.datetime/dt-y-eq ?date ?year)]])
+    [(playground.datetime/dt-eq ?date ?year)]])
 
 (def all-loans-of-year-month-q
   '[:find [(pull ?e [*]) ...]
-    :in $ ?year-month
+    :in $ ?year ?month
     :where
     [?e :loan/date ?date]
-    [(playground.datetime/dt-ym-eq ?date ?year-month)]])
+    [(playground.datetime/dt-eq ?date ?year ?month)]])
 
 (def all-book-titles-q
   '[:find [?title ...]
@@ -50,9 +50,9 @@
 
 
   (d/q all-loans-q db)
-  (d/q all-loans-of-year-q db #inst "2025")
-  (d/q all-loans-of-year-q db #inst "2024")
-  (d/q all-loans-of-year-month-q db #inst "2024-11")
+  (d/q all-loans-of-year-q db "2025")
+  (d/q all-loans-of-year-q db "2024")
+  (d/q all-loans-of-year-month-q db "2024" "11")
 
   (d/q all-book-titles-q db)
   (d/q loans-by-member-q db [:member/email "member1@example.com"])
