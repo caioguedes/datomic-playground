@@ -10,3 +10,6 @@ Collection of scraps and notes taken during my studies about Datomic.
 * [Datomic Documentation - Executing Queires](https://docs.datomic.com/query/query-executing.html)
 * [Datomic Documentation - Query Reference](https://docs.datomic.com/query/query-data-reference.html)
 * ["Spec-ulation Keynote" by Rich Hickey (2016)](https://www.youtube.com/watch?v=oyLBGkS5ICk)
+* [Day of Datomic 2014 Part 1](https://www.youtube.com/watch?v=G4CZS3sgnX8)
+* [Day of Datomic 2014 Part 2](https://www.youtube.com/watch?v=l2-jV66hl3I)
+* [Day of Datomic 2014 Part 3](https://www.youtube.com/watch?v=9t0bqb2JJSs)
