@@ -9,3 +9,4 @@ Collection of scraps and notes taken during my studies about Datomic.
 * ["Datomic Made Easy Datomic in the Cloud" by Stuart Halloway (2017)](https://www.youtube.com/watch?v=Ljvhjei3tWU)
 * [Datomic Documentation - Executing Queires](https://docs.datomic.com/query/query-executing.html)
 * [Datomic Documentation - Query Reference](https://docs.datomic.com/query/query-data-reference.html)
+* ["Spec-ulation Keynote" by Rich Hickey (2016)](https://www.youtube.com/watch?v=oyLBGkS5ICk)
