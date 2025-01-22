@@ -10,27 +10,29 @@
   :book/title "Clojure for the Brave and True: Learn the Ultimate Language and Become a Better Programmer"
   :book/author "Daniel Higginbotham"
   :book/publish-year 2015}
- {:member/name "Member 1"
+ {:db/id #db/id[:db.part/user -1]
+  :member/name "Member 1"
   :member/email "member1@example.com"}
- {:member/name "Member 2"
+ {:db/id #db/id[:db.part/user -2]
+  :member/name "Member 2"
   :member/email "member2@example.com"}
- {:loan/member {:member/email "member2@example.com"}
+ {:loan/member #db/id[:db.part/user -2]
   :loan/date #inst "2025-01-01"
   :loan/due-date #inst "2025-01-21"
   :loan/books [{:book/isbn 9781593275914}]}
- {:loan/member {:member/email "member1@example.com"}
+ {:loan/member #db/id[:db.part/user -1]
   :loan/date #inst "2015-01-01"
   :loan/due-date #inst "2015-01-21"
   :loan/books [{:book/isbn 9781680502466}]}
- {:loan/member {:member/email "member2@example.com"}
+ {:loan/member #db/id[:db.part/user -2]
   :loan/date #inst "2024-12-01"
   :loan/due-date #inst "2024-12-21"
   :loan/books [{:book/isbn 9781593275914}]}
- {:loan/member {:member/email "member2@example.com"}
+ {:loan/member #db/id[:db.part/user -2]
   :loan/date #inst "2024-11-01"
   :loan/due-date #inst "2024-11-21"
   :loan/books [{:book/isbn 9781593275914}]}
- {:loan/member {:member/email "member1@example.com"}
+ {:loan/member #db/id[:db.part/user -1]
   :loan/date #inst "2024-11-01"
   :loan/due-date #inst "2024-11-21"
   :loan/books [{:book/isbn 9781680503005}]}]
