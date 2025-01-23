@@ -5,6 +5,10 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "A member's name"}
+   {:db/ident :member/loans
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many
+    :db/doc "A member's loans"}
    {:db/ident :member/email
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
@@ -43,4 +47,3 @@
     :db/valueType :db.type/ref
     :db/cardinality :db.cardinality/many
     :db/doc "The loan's books"}])
-
